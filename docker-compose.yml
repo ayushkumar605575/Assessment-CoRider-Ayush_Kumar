@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5100:5100"
+    depends_on:
+      - db
+    environment:
+      MONGO_DB_HOST: db
+      MONGO_DB_PORT: 27017
+      MONGO_DB_NAME: UserDB
+
+  db:
+    image: mongo:latest
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: UserDB
+
+volumes:
+  mongodb_data:
